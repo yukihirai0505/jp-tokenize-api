@@ -2,12 +2,20 @@ import { Request, Response } from "express";
 import Express from "express";
 import kuromoji from "kuromoji";
 import cors from "cors";
+import bodyParser from "body-parser";
 
 const app = Express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req: Request, res: Response) => {
-  const query = req.query.q;
+const mapSortByValue = (map: Map<string, number>): Map<string, number> => {
+  return new Map([...map.entries()].sort((a, b) => b[1] - a[1]));
+};
+
+app.post("/", (req: Request, res: Response) => {
+  const query = req.body.q;
+  console.log(query);
   kuromoji.builder({ dicPath: `${__dirname}/dict` }).build((err, tokenizer) => {
     if (err) {
       console.log(err);
@@ -25,7 +33,7 @@ app.get("/", (req: Request, res: Response) => {
         }
       });
       return res.json(
-        [...nouns.entries()].map(noun => {
+        [...mapSortByValue(nouns).entries()].map(noun => {
           return { word: noun[0], count: noun[1] };
         })
       );
