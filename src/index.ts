@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import Express from "express";
 import kuromoji from "kuromoji";
+import cors from "cors";
 
 const app = Express();
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   const query = req.query.q;
