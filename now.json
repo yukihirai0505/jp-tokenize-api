@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "jp-tokenize-api",
+  "alias": "jp-tokenize-api.now.sh",
+  "builds": [
+    { "src": "src/dict/*", "use": "@now/static" },
+    { "src": "src/*.ts", "use": "@now/node" }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "/src/$1" }]
+}

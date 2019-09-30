@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/kuromoji": "^0.1.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "kuromoji": "^0.1.2"
+  }
+}
